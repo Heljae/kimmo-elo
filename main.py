@@ -19,18 +19,20 @@ class Main():
         if command == 2:
             name = input("name: ")
             elo = float(self.db.find_player_elo(name))
+            total_cups = int(input("number of cups in game:"))
             opponent_elo = float(input("opponent average elo: "))
-            cups = int(input("cups you drank: "))
+            cups_drank = int(input("cups you drank: "))
             new = input("first game (y/n) ")
 
             if new == "y":
-                count = Elo(elo, opponent_elo, cups, True)
+                count = Elo(elo, opponent_elo, cups_drank, True, total_cups)
             else:
-                count = Elo(elo, opponent_elo, cups, False)
+                count = Elo(elo, opponent_elo, cups_drank, False, total_cups)
 
             new_elo = count.count()
-
-            self.db.palyers[name] = new_elo
+            total_games = self.db.palyers[name][1] + 1
+            total_cups = self.db.palyers[name][1] + cups_drank
+            self.db.palyers[name] = [elo, total_games, total_cups]
             
             return new_elo
         if command == 3:

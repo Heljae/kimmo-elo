@@ -8,11 +8,12 @@ on your right during the game
 """
 
 class Elo:
-    def __init__(self, prev_elo, opponent_elo, cups, new_palyer):
+    def __init__(self, prev_elo, opponent_elo, cups_drank, new_palyer, total_cups):
         self._prev = prev_elo
         self._opelo = opponent_elo
-        self._cups = cups
+        self._cups_drank = cups_drank
         self._new = new_palyer
+        self._total_cups = total_cups
 
     def count(self):
         if self._new:
@@ -47,12 +48,12 @@ class Elo:
             return 20
 
     def get_result(self):
-        if self._cups < 3:
-            return 1
-        if 2 < self._cups < 5:
-            return 0.5
-        else:
+        if self._cups_drank >= ((14-0.1*self._total_cups)/60):
             return 0
+        elif self._cups_drank <= ((14-0.1*self._total_cups)/60)/3:
+            return 1
+        else:
+            return 0.5
 
     def get_expected_per(self):
         pd = 50*(1+erf((self._prev-self._opelo)/400))
