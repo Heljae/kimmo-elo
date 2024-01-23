@@ -18,7 +18,7 @@ class Main():
             self.db.add_player()
         if command == 2:
             name = input("name: ")
-            elo = float(self.db.find_player_elo(name))
+            elo = self.db.find_player_elo(name)
             total_cups = int(input("number of cups in game:"))
             opponent_elo = float(input("opponent average elo: "))
             cups_drank = int(input("cups you drank: "))
