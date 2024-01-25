@@ -18,7 +18,7 @@ class Main():
             self.db.add_player()
         if command == 2:
             name = input("name: ")
-            elo = self.db.find_player_elo(name)
+            elo = self.db.find_player_elo(name)[0]
             total_cups = int(input("number of cups in game:"))
             opponent_elo = float(input("opponent average elo: "))
             cups_drank = int(input("cups you drank: "))
@@ -36,7 +36,8 @@ class Main():
             
             return new_elo
         if command == 3:
-            print(self.db.palyers)
+            for key, val in self.db.palyers.items():
+                print(f"{key}: {val[0]}")
     
 if __name__=="__main__":
     main = Main()
